@@ -1,37 +1,83 @@
-## Welcome to GitHub Pages
+# Maths Module
 
-You can use the [editor on GitHub](https://github.com/CoolCat467/maths/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+The Maths Module is a Python Module that contains several functions, a lot of them doing with math or related things.
+The Maths Module also contains severall helpfull functions commonly used in Cat-Ink's Programs.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Usage:
+### setPrime
+Sets the prime number used for hashing
+'''maths.setPrime(number)'''
 
-### Markdown
+### getnums
+GetNums makes text strings into  number-strings
+'''maths.getnums(str)'''
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### getext(nums)
+GetText makes number-strings back into a text strings
+'''maths.getext(numstring)'''
+Note: it is advised not to do int() on the number.
 
-```markdown
-Syntax highlighted code block
+### partquotes
+PartQuotes is a powerfull program that can find single-quote-enclosed text, and then returns the part you choose.
+text is whatever wou want searched
+witch is whatever set of quotes you want
+how is default False.
+how = False: Returns the quoted text you choose (normal opperation)
+how = True:  Returns how many quoted text segments there are
+'''maths.partquotes(text, witch, how = False)'''
 
-# Header 1
-## Header 2
-### Header 3
+### seperate
+Seperate seperates text by space charecters
+'''maths.seperate(text)'''
 
-- Bulleted
-- List
+### mkplain
+MkPlain makes word into super plain text and strips numbers
+'''mkplain(word)'''
 
-1. Numbered
-2. List
+### timeCalc
+TimeCalc Calculates Time and returns a tuple of (days, hours, minutes, secconds)
+'''timeCalc(totalsecs)'''
 
-**Bold** and _Italic_ and `Code` text
+### gethashed
+GetHashed Takes the entered text, hashes it, and returns the hash
+'''maths.gethashed(text)'''
 
-[Link](url) and ![Image](src)
-```
+### hashfile
+HashFile hashes files. Boom.
+'''maths.gethashed(filename)'''
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+### encrypt
+Encrypt encrypts text with a given key.
+'''maths.encrypt(key, msg)'''
 
-### Jekyll Themes
+### decrypt
+Decrypts decrypts text with a given key.
+'''maths.decrypt(key, encryped)'''
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/CoolCat467/maths/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+### RadixText
+RadixText Sorts text with the RadixLSD Module
+'''maths.RadixText(data):'''
 
-### Support or Contact
+# seplist
+SepList makes lists into text, seperated by given values
+'''maths.seplist(readlist, sepby)'''
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+### strlist
+StrList makes str()-ed lists back into true lists
+'''maths.strlist(stredlist)'''
+
+### sysinfo
+SysInfo returns a tuple of the System Name, Device Name, and the Current Folder the program is in)
+'''maths.sysinfo()'''
+
+### findwhole
+FindWhole returns whatever whole number the given percent and part of whole came from
+'''maths.findwhole(percent, part)'''
+
+### findpercent
+FindPercent returns whatever the percentage the given part of whole of whole are
+'''maths.findpercent(part, whole)'''
+
+### findpart
+FindPart returns whatever part of the given percent of the whole number is
+'''maths.findpart(percent, whole)'''

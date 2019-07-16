@@ -290,7 +290,7 @@ def __init__():
     setPrime()
     SYSNAME = os.uname()[0]
     NODENAME = os.uname()[1]
-    CURFOLD = os.path.split(os.getcwd())[2]
+    CURFOLD = os.path.split(os.getcwd())[1]
     warnings()
     
 def terminate():

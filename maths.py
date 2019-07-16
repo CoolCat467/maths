@@ -1,62 +1,16 @@
 #!/usr/bin/env python3
 # Maths Modual for Cat Inc Programs.
 #
-# All Thanks to Anivargi's Twin prime calculator at
-# Scratch.mit.edu/projects/128640110/ for the program that finds out
-# if it is prime or not.
-#
 # Copywrite Cat Inc, All rights reserved.
 # Programmed by CoolCat467, member of Cat Inc.
 
-import os, sys, time, math
-global pyinstallered
+import os
 global PRIMENUMBER
-PRIMENUMBER = 2227501 # For Hashing
-pyinstallered = False
+__version__ = '0.0.2'
 
-def isPrime(num):
-    # Anivargi's program that finds out if it is prime or not. See top
-    isPrime = True
-    if num < 3 or num == 3:
-        isPrime = True
-    else:
-        divideNumber = 2
-        while isPrime == True and divideNumber != math.ceil(math.sqrt(num + 1)):
-            if num % divideNumber == 0:
-                isPrime = False
-            else:
-                divideNumber = divideNumber + 1
-    return isPrime
-
-def timeCalc(totalsec):
-    # Calculate Time
-    # Min Calc
-    if totalsec >= 60:
-        totalmin = totalsec / 60
-        if totalmin < 1:
-            totalmin = 0
-        else:
-            totalmin = int(round(totalmin))
-    else:
-        totalmin = 0
-        totalhr = 0
-    # Hr Calc
-    if totalmin >= 60:
-        totalhr = totalmin / 60
-        if totalhr < 0:
-            totalhr = 0
-        else:
-            totalhr = int(round(totalhr))
-    else:
-        totalhr = 0
-    # Update min value
-    for i in range(totalhr):
-        totalmin = totalmin - 60
-    # Update sec value
-    i = None
-    for i in range(totalmin):
-        totalsec = totalsec - 60
-    return ('Total Time Running: %s hrs, %s mins, %s secs' % (totalhr, totalmin, totalsec))
+def setPrime(number=2227501):
+    global PRIMENUMBER
+    PRIMENUMBER = int(number)
 
 def getnums(text):
     # make a string into a number string
@@ -89,6 +43,86 @@ def getext(nums):
                 text = text + chr(int(num) + 32)
             control = 1
     return text
+
+def partquotes(text, witch, how = False):
+    try:
+        ftimes = 0
+        found = False
+        for i in text:
+            if not found:
+                if i == "'":
+                    found = True
+                    ftimes = ftimes + 1
+                    var = 'l' + str('i' * ftimes)
+                    exec("%s = ''" % var)
+                    to = "%s = %s + " % (var, var)
+            else:
+                if i != "'":
+                    exec(str(to) + "'" + i + "'")
+                else:
+                    found = False
+        var = 'l' + str('i' * int(witch))
+        if not how:
+            toreturn = eval(var)
+        else:
+            toreturn = ftimes
+        return toreturn
+    except SyntaxError:
+        return 'Error'
+
+def seperate(text):
+    ftimes = 0
+    scan = str(' ' + str(text))
+    for i in scan:
+        if str(i) == ' ':
+            ftimes = ftimes + 1
+            what = str('tmp' + str('i' * int(ftimes)))
+            exec(str(what + " = ''"))
+        else:
+            what = str('tmp' + str('i' * int(ftimes)))
+            tostore = str(eval(what) + str(i))
+            if "'" in tostore:
+                tostore = list(tostore)
+                tmp = []
+                for ii in tostore:
+                    if "'" in str(ii):
+                        tmp.append(str('\\\''))
+                    else:
+                        tmp.append(str(ii))
+                tmp = str(''.join(tmp))
+                tostore = tmp
+            exec(str(what + " = '" + tostore + "'"))
+    tmp = []
+    for i in range(ftimes):
+        what = str('tmp' + str('i' * int(i + 1)))
+        tmp.append(str(eval(what)))
+    return list(tmp)
+
+def mkplain(word):
+    tmp = []
+    for i in range(26):
+        tmp.append(chr(i + 65).lower())
+    tmp.append("'")
+    read = tuple(tmp)
+    res = []
+    for i in list(str(word).lower()):
+        if i in read:
+            res.append(chr(read.index(i) + 97))
+            if res[len(res)-1] == '{':
+                del res[len(res)-1]
+                res.append("'")
+    return str(''.join(res))
+
+def timeCalc(totalsecs):
+    # Calculate Time
+    secs = int(totalsecs)
+    mins = int((secs - (secs % 60)) / 60)
+    secs = int(secs - (mins * 60))
+    hrs  = int((mins - (mins % 60)) / 60)
+    mins = int(mins - (hrs * 60))
+    days = int((hrs - (hrs % 24)) / 24)
+    hrs  = int(hrs - (days * 24))
+    return tuple(str('%s\n%s\n%s\n%s' % (days, hrs, mins, secs)).splitlines())
 
 def gethashed(text):
     # Take the entered text, hash it, and return it
@@ -143,53 +177,6 @@ def hashfile(filename):
         data = str(''.join(data))
         return data
 
-def partquotes(text, witch, how = False):
-    # Program that can retrieve sections of data that are within
-    # single quotes. Helpfull for list -> str -> list
-    try:
-        ftimes = 0
-        found = False
-        for i in text:
-            if not found:
-                if i == "'":
-                    found = True
-                    ftimes = ftimes + 1
-                    var = 'l' + str('i' * ftimes)
-                    exec("%s = ''" % var)
-                    to = "%s = %s + " % (var, var)
-            else:
-                if i != "'":
-                    exec(str(to) + "'" + i + "'")
-                else:
-                    found = False
-        var = 'l' + str('i' * int(witch))
-        if not how:
-            toreturn = eval(var)
-        else:
-            toreturn = ftimes
-        return toreturn
-    except SyntaxError:
-        return 'Error'
-
-def seperate(text):
-    # Will seperate text by spaces.
-    ftimes = 0
-    scan = str(' ' + str(text))
-    for i in scan:
-        if str(i) == ' ':
-            ftimes = ftimes + 1
-            what = str('tmp' + str('i' * int(ftimes)))
-            exec(str(what + " = ''"))
-        else:
-            what = str('tmp' + str('i' * int(ftimes)))
-            tostore = str(eval(what) + str(i))
-            exec(str(what + " = '" + tostore + "'"))
-    tmp = []
-    for i in range(ftimes):
-        what = str('tmp' + str('i' * int(i + 1)))
-        tmp.append(str(eval(what)))
-    return list(tmp)
-
 def encrypt(key, msg):
     encryped = []
     for i, c in enumerate(msg):
@@ -206,24 +193,113 @@ def decrypt(key, encryped):
         msg.append(chr((enc_c - key_c) % 127))
     return ''.join(msg)
 
-def main():
+def RadixText(data):
+    #Sorts text with RadixLSD
+    try:
+        cat = RadixLSD.__version__
+    except NameError:
+        contents = os.listdir(os.getcwd())
+        if not 'RadixLSD.py' in contents:
+            print('ERR: RadixLSD Modual is not present.')
+            print('RadixText will not function without RadixLSD')
+        else:
+            import RadixLSD
+    tosort = []
+    for i in range(len(data)):
+        tosort.append(mkplain(data[i]))
+    tmp = ['']
+    for i in range(26):
+        tmp.append(chr(i + 65).lower())
+    tmp.append("'")
+    for i in range(10):
+        tmp.append(i)
+    tmp.append('')
+    read = tuple(tmp)
+    for i in tosort:
+        tmp = []
+        for ii in str(i).lower():
+            try:
+                dtmp = str(read.index(ii))
+            except ValueError:
+                dtmp = str(len(read)-1)
+            if int(len(list(dtmp))%2) != 0:
+                dtmp = str('0' + dtmp)
+            tmp.append(dtmp)
+        tosort[tuple(tosort).index(i)] = int(''.join(tmp))
+    sort = RadixLSD.RadixLSD(tosort)
+    for i in range(len(sort)):
+        tmp = len(list(str(sort[i])))
+        if bool(tmp % 2):
+            sort[i] = str('0' + str(sort[i]))
+        else:
+            sort[i] = str(sort[i])
+    for i in sort:
+        tmp = []
+        for ii in range(0, int(len(list(i))-1/2), 2):
+            tmp.append(read[int(i[ii] + i[ii+1])])
+        sort[tuple(sort).index(i)] = str(''.join(tmp))
+    return sort
+
+def seplist(readlist, sepby):
+    #makes lists into text seperated by given values
+    tmp = []
+    for i in readlist:
+        tmp.append(str(i))
+        tmp.append(sepby)
+    data = str(''.join(tmp))
+    return data
+
+def strlist(stredlist):
+    #makes str()-ed lists back into true lists
+    load = str(stredlist)
+    l = partquotes(load, 1, how=True)
+    tmp = []
+    for i in range(l):
+        tmp.append(partquotes(load, i+1))
+    return tmp
+
+def sysinfo():
+    global SYSNAME
+    global NODENAME
+    global CURFOLD
+    return tuple(str('%s\n%s\n%s' % (SYSNAME, NODENAME, CURFOLD)).splitlines()) 
+
+def findwhole(percent, part):
+    tmp = (part / (percent / 100))
+    if int(tmp) == tmp:
+        tmp = int(tmp)
+    return tmp
+
+def findpercent(part, whole):
+    tmp = ((part / whole) * 100)
+    if int(tmp) == tmp:
+        tmp = int(tmp)
+    return tmp
+
+def findpart(percent, whole):
+    tmp = (whole * (percent / 100))
+    if int(tmp) == tmp:
+        tmp = int(tmp)
+    return tmp
+
+def __init__():
     # Set some globals
     global SYSNAME
     global NODENAME
     global CURFOLD
-    global runningMain
-    SYSNAME = partquotes(str(os.uname()), 1)
-    NODENAME = partquotes(str(os.uname()), 2)
-    CURFOLD = partquotes(str(os.path.split(str(os.getcwd()))), 2)
-    folder = partquotes(str(os.path.split(os.getcwd())), 2)
+    setPrime()
+    SYSNAME = os.uname()[0]
+    NODENAME = os.uname()[1]
+    CURFOLD = os.path.split(os.getcwd())[2]
+    warnings()
     
 def terminate():
-    sys.exit()
+    os.abort()
     exit()
 
+def warnings():
+    if sysinfo()[0] != 'Linux':
+        print('WARNING: Some things may not work, as system is not Linux')
+
 # Activation Program
-if __name__ == '__main__':
-    startTime = time.time()
-    print("Copywrite Cat Inc, All rights reserved.")
-    print("Programmed by CoolCat467, member of Cat Inc.")
-    main()
+__init__()

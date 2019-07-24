@@ -3,6 +3,16 @@
 The Maths Module is a Python Module that contains several functions, a lot of them doing with math or related things.
 The Maths Module also contains severall helpfull functions commonly used in Cat-Ink's Programs.
 
+## Version information:
+Version 0.0.1:
+Initial release
+
+Version 0.0.2:
+Magor bug fixes
+
+Version 0.0.3:
+Bug fix for Windows because os.uname does not exist on windows for some reson
+
 ## Usage:
 ### setPrime
 Sets the prime number used for hashing

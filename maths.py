@@ -6,7 +6,7 @@
 
 import os
 global PRIMENUMBER
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 
 def setPrime(number=2227501):
     global PRIMENUMBER
@@ -288,8 +288,11 @@ def __init__():
     global NODENAME
     global CURFOLD
     setPrime()
-    SYSNAME = os.uname()[0]
-    NODENAME = os.uname()[1]
+    SYSNAME = str(os.sys.platform.title())
+    if os.name == 'posix':
+        NODENAME = str(os.uname()[1])
+    else:
+        NODENAME = 'Unknown'
     CURFOLD = os.path.split(os.getcwd())[1]
     warnings()
     

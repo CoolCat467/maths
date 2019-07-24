@@ -68,7 +68,7 @@ Decrypts decrypts text with a given key.
 RadixText Sorts text with the RadixLSD Module
 '''maths.RadixText(data):'''
 
-# seplist
+### seplist
 SepList makes lists into text, seperated by given values
 '''maths.seplist(readlist, sepby)'''
 

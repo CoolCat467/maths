@@ -1,7 +1,9 @@
 # Maths Module
 
+This module is not very useful, but it was a part of my start to programming in python.
+
 The Maths Module is a Python Module that contains several functions, a lot of them doing with math or related things.
-The Maths Module also contains severall helpfull functions commonly used in Cat-Ink's Programs.
+The Maths Module also contains several helpfull functions commonly used in Cat-Ink's Programs.
 
 ## Version information:
 Version 0.0.1:
